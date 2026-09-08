@@ -1,7 +1,11 @@
-const NavBar = (props) => {
+import { Link } from 'react-router';
+
+const NavBar = () => {
   return (
     <nav>
-      <p>Navbar contents will go here.</p>
+      <ul>
+        <li><Link to='/sign-up'>Sign Up</Link></li>
+      </ul>
     </nav>
   );
 };

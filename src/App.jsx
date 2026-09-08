@@ -1,11 +1,17 @@
+import { Route, Routes } from 'react-router';
+
+// Components
 import NavBar from './components/NavBar/NavBar';
+import SignUpForm from './components/SignUpForm/SignUpForm';
 
 const App = () => {
 
   return (
     <>
       <NavBar />
-      <h1>Hello, friend!</h1>
+      <Routes>
+        <Route path='/sign-up' element={<SignUpForm />} />
+      </Routes>
     </>
   );
 };
