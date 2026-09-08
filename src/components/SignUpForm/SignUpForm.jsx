@@ -1,13 +1,15 @@
 // SignUpForm.jsx
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 // Services
 import { signUp } from '../../services/authService';
+import { UserContext } from '../../contexts/UserContext';
 
 
-const SignUpForm = () => {
+const SignUpForm = (props) => {
+  const { setUser } = useContext(UserContext)
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
@@ -27,7 +29,7 @@ const SignUpForm = () => {
     evt.preventDefault();
     try {
       const newUser = await signUp(formData);
-      console.log(newUser)
+      setUser(newUser)
     } catch (error) {
       console.log(error.message)
     }
