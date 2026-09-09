@@ -30,6 +30,7 @@ const SignUpForm = (props) => {
     try {
       const newUser = await signUp(formData);
       setUser(newUser)
+      navigate('/')
     } catch (error) {
       console.log(error.message)
     }

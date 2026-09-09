@@ -39,6 +39,41 @@ const signUp = async (formData) => {
   }
 };
 
+const signIn = async (formData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/sign-in`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+
+    if (data.token) {
+      // first save the raw token in local storage
+      localStorage.setItem('token', data.token);
+      // then extract the payload (second part of the token)
+      const payload = data.token.split('.')[1]
+
+      // Convert the serialized payload into JSON
+      const tokenJSON = atob(payload)
+
+      // Take that json and convert it back into JS
+      return JSON.parse(tokenJSON)
+    }
+
+    throw new Error('Invalid response from server');
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
 export {
   signUp,
+  signIn,
 };
