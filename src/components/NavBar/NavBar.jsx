@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { Link } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
+import styles from './NavBar.module.css';
+
 
 const NavBar = () => {
 
@@ -12,7 +14,7 @@ const NavBar = () => {
   }
 
   return (
-    <nav>
+    <nav className={styles.container}>
       <ul>
 
         { user

@@ -1,9 +1,10 @@
 import { Link } from 'react-router';
+import styles from './HootList.module.css';
 
 export default function HootList({ hoots }) {
   return (
-    <main>
-      {hoots.map((hoot) => (
+<main className={styles.container}>
+        {hoots.map((hoot) => (
         <Link key={hoot._id} to={`/hoots/${hoot._id}`}>
           <article>
             <header>

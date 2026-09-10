@@ -7,6 +7,8 @@ import { signIn } from '../../services/authService';
 
 import { UserContext } from '../../contexts/UserContext';
 
+import styles from './SignInForm.module.css';
+
 const SignInForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -36,7 +38,7 @@ const SignInForm = () => {
   };
 
   return (
-    <main>
+    <main className={styles.container}>
       <h1>Sign In</h1>
       <p>{message}</p>
       <form autoComplete='off' onSubmit={handleSubmit}>
