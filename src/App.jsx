@@ -10,6 +10,7 @@ import Landing from "./components/Landing/Landing";
 import HootList from "./components/HootList/HootList";
 import HootDetails from "./components/HootDetails/HootDetails";
 import HootForm from "./components/HootForm/HootForm";
+import CommentForm from "./components/CommentForm/CommentForm";
 
 // Context
 import { UserContext } from "./contexts/UserContext";
@@ -36,22 +37,22 @@ const App = () => {
   }, []);
 
   const handleAddHoot = async (hootFormData) => {
-  const newHoot = await hootService.create(hootFormData);
-  setHoots([newHoot, ...hoots]);
-  navigate('/hoots');
-};
+    const newHoot = await hootService.create(hootFormData);
+    setHoots([newHoot, ...hoots]);
+    navigate("/hoots");
+  };
 
-const handleDeleteHoot = async (hootId) => {
-  await hootService.deleteHoot(hootId);
-  setHoots(hoots.filter((hoot) => hoot._id !== hootId));
-  navigate('/hoots');
-};
+  const handleDeleteHoot = async (hootId) => {
+    await hootService.deleteHoot(hootId);
+    setHoots(hoots.filter((hoot) => hoot._id !== hootId));
+    navigate("/hoots");
+  };
 
-const handleUpdateHoot = async (hootId, hootFormData) => {
- const updatedHoot = await hootService.update(hootId, hootFormData);
- setHoots(hoots.map((hoot) => (hootId === hoot._id ? updatedHoot : hoot)))
-  navigate(`/hoots/${hootId}`);
-}
+  const handleUpdateHoot = async (hootId, hootFormData) => {
+    const updatedHoot = await hootService.update(hootId, hootFormData);
+    setHoots(hoots.map((hoot) => (hootId === hoot._id ? updatedHoot : hoot)));
+    navigate(`/hoots/${hootId}`);
+  };
   return (
     <>
       <NavBar />
@@ -65,9 +66,22 @@ const handleUpdateHoot = async (hootId, hootFormData) => {
               path="/hoots"
               element={<HootList hoots={hoots} setHoots={setHoots} />}
             />
-            <Route path="/hoots/:hootId" element={<HootDetails handleDeleteHoot={handleDeleteHoot} />} />
-            <Route path ='/hoots/new' element={<HootForm handleAddHoot={handleAddHoot}/>}/>
-            <Route path='/hoots/:hootId/edit' element={<HootForm handleUpdateHoot={handleUpdateHoot}/>}/>
+            <Route
+              path="/hoots/:hootId"
+              element={<HootDetails handleDeleteHoot={handleDeleteHoot} />}
+            />
+            <Route
+              path="/hoots/new"
+              element={<HootForm handleAddHoot={handleAddHoot} />}
+            />
+            <Route
+              path="/hoots/:hootId/edit"
+              element={<HootForm handleUpdateHoot={handleUpdateHoot} />}
+            />
+            <Route
+              path="/hoots/:hootId/comments/:commentId/edit"
+              element={<CommentForm />}
+            />
           </>
         ) : (
           <>
