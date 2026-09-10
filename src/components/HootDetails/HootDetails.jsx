@@ -31,6 +31,15 @@ const handleDeleteHoot = async () => {
   await props.handleDeleteHoot(hootId);
 };
 
+const handleDeleteComment = async(commentId) => {
+  await hootService.deleteComment(hootId, commentId);
+
+  setHoot({
+    ...hoot,
+    comments: hoot.comments.filter((comment) => comment._id !== commentId),
+  })
+} 
+
   return (
   <main>
     <section>
@@ -65,9 +74,16 @@ const handleDeleteHoot = async () => {
     <article key={comment._id}>
       <header>
         <p>
-          {`${comment.author.username} posted on
+          {`${user.username} posted on
           ${new Date(comment.createdAt).toLocaleDateString()}`}
         </p>
+
+{comment.author === user._id && (
+  
+          <button onClick={() => handleDeleteComment(comment._id)}>
+            Delete
+          </button>
+        )}
       </header>
       <p>{comment.text}</p>
     </article>
