@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, Link } from 'react-router';
 import * as hootService from '../../services/hootService';
 import CommentForm from '../CommentForm/CommentForm';
-
 
 const HootDetails = (props) => {
   const { hootId } = useParams();
@@ -47,7 +46,11 @@ const handleDeleteHoot = async () => {
       <p>{hoot.text}</p>
 
       {user._id === hoot.author._id && (
+        <>
+        <Link to={`/hoots/${hootId}/edit`}>Edit</Link>
+
         <button onClick={handleDeleteHoot}>Delete</button>
+        </>
       )}
     </section>
 
