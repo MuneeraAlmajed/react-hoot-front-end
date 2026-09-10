@@ -41,6 +41,12 @@ const App = () => {
   navigate('/hoots');
 };
 
+const handleDeleteHoot = async (hootId) => {
+  await hootService.deleteHoot(hootId);
+  setHoots(hoots.filter((hoot) => hoot._id !== hootId));
+  navigate('/hoots');
+};
+
   return (
     <>
       <NavBar />
@@ -54,7 +60,7 @@ const App = () => {
               path="/hoots"
               element={<HootList hoots={hoots} setHoots={setHoots} />}
             />
-            <Route path="/hoots/:hootId" element={<HootDetails />} />
+            <Route path="/hoots/:hootId" element={<HootDetails handleDeleteHoot={handleDeleteHoot} />} />
             <Route path ='/hoots/new' element={<HootForm handleAddHoot={handleAddHoot}/>}/>
           </>
         ) : (

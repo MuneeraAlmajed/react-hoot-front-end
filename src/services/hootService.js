@@ -66,6 +66,21 @@ const createComment = async (hootId, commentFormData) => {
   }
 };
 
+const deleteHoot = async (hootId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${hootId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export { 
-  index, show, create, createComment,
+  index, show, create, createComment, deleteHoot,
 };

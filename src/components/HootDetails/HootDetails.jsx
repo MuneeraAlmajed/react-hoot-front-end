@@ -1,11 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../contexts/UserContext';
+import { useNavigate, useParams } from 'react-router';
 import * as hootService from '../../services/hootService';
 import CommentForm from '../CommentForm/CommentForm';
 
-const HootDetails = () => {
+
+const HootDetails = (props) => {
   const { hootId } = useParams();
   const [hoot, setHoot] = useState(null);
+  const {user} = useContext(UserContext); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHoot = async () => {
@@ -24,6 +28,10 @@ const handleAddComment = async (commentFormData) => {
   console.log('hoot state:', hoot);
   if(!hoot) return <main>Loading . . .</main>
 
+const handleDeleteHoot = async () => {
+  await props.handleDeleteHoot(hootId);
+};
+
   return (
   <main>
     <section>
@@ -37,6 +45,10 @@ const handleAddComment = async (commentFormData) => {
       </header>
 
       <p>{hoot.text}</p>
+
+      {user._id === hoot.author._id && (
+        <button onClick={handleDeleteHoot}>Delete</button>
+      )}
     </section>
 
     <section>
